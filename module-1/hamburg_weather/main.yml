@@ -26,7 +26,7 @@ jobs:
     steps:
       # Checkout step is necessary to access repository files
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Determine environment based on target branch
       - name: Set environment
@@ -61,7 +61,7 @@ jobs:
         run: |
           # Export TARGET_BRANCH for use in this step
           echo "Using branch: ${GITHUB_REF_NAME}"
-          snow git execute @advanced_data_engineering_snowflake/branches/FIX-ME/module-1/hamburg_weather/pipeline/data/ \
-          -D "env='${{  }}'" \
+          snow git execute @advanced_data_engineering_snowflake/branches/${GITHUB_REF_NAME}/module-1/hamburg_weather/pipeline/data/ \
+          -D "env='${{ env.DEPLOY_ENV }}'" \
           --database=COURSE_REPO \
           --schema=PUBLIC
